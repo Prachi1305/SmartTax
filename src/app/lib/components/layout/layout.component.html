@@ -1,0 +1,27 @@
+<!-- <div class="row grow w-100" >
+    <div class="col-12 bg-primary py-3 " id="header"> -->
+<!-- <app-header *ngIf="config.header"></app-header> -->
+<!-- </div>
+    <div class="col-4 bg-info py-3" id="sidebar"> -->
+
+<!-- <app-sidebar *ngIf="config.sidebar"></app-sidebar> -->
+<!-- </div>
+    <div class="main col-8 bg-warning h-100 py-3" id="content"> -->
+<!-- <router-outlet></router-outlet> -->
+<!-- </div>
+</div>
+<div class="row w-100" id="footer">
+    <div class="col-12 py-3 bg-danger"> -->
+<!-- <app-footer *ngIf="config.footer"></app-footer> -->
+<!-- </div>
+</div> -->
+<div class="row ">
+    <div id="sidebar" class="bg-info h-100 col-md-4" *ngIf="config.sidebar">
+        <app-sidebar></app-sidebar>
+
+    </div>
+
+    <div class="col-md-8" [ngClass]="{'col-12':!config.sidebar}">
+       <router-outlet></router-outlet>
+    </div>
+</div>
