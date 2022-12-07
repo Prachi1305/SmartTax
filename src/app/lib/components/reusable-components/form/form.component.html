@@ -1,0 +1,120 @@
+<form [formGroup]="myForm">
+    <div class="row">
+        <div class="form-group"
+            [ngClass]="{'col-md-3 mx-4 my-4':columns === 3, 'col-5 mx-3 my-3':columns === 2,' mx-2 my-2':columns === 1}"
+            *ngFor="let control of formTemplate.controls">
+            <div *ngIf="['text','password','email','number','search','tel','url'].includes(control.type)">
+
+
+                <label>{{control.name}}</label>
+                <input [type]="control.type" [formControlName]="control.name" [value]="control.value"
+                    class="form-control">
+                <div class="text-danger" *ngIf="checkError(control.name) && submitted">
+                    <div *ngFor="let error of control.validators">
+                        <span
+                            *ngIf="this.myForm.controls[control.name].hasError(error.validator.toLowerCase());">{{error.errormessage}}</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="control.type === 'textarea'">
+
+                <label>{{control.name}}</label>
+                <input [type]="control.type" [formControlName]="control.name" [value]="control.value"
+                    class="form-control">
+                <div class="text-danger" *ngIf="checkError(control.name) && submitted">
+                    <div *ngFor="let error of control.validators">
+                        <span
+                            *ngIf="this.myForm.controls[control.name].hasError(error.validator.toLowerCase());">{{error.errormessage}}</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div *ngIf="control.type === 'range'">
+                <label>{{control.name}}</label>
+                <input [min]="control.options.min" [step]="control.options.step" [max]="control.options.max"
+                    type="range" [formControlName]="control.name" class="form-control-range" id="formControlRange">
+                <div class="text-danger" *ngIf="checkError(control.name) && submitted">
+                    <div *ngFor="let error of control.validators">
+                        <span
+                            *ngIf="this.myForm.controls[control.name].hasError(error.validator.toLowerCase());">{{error.errormessage}}</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="control.type === 'radio'">
+                <label>{{control.label}}</label>
+                <div class="form-check" *ngFor="let item of control.options">
+                    <input [name]="item.name" type="radio" [formControlName]="control.name" [value]="item.key"
+                        class="form-check-input">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        {{item.value}}
+                    </label>
+                </div>
+
+                <div class="text-danger" *ngIf="checkError(control.name) && submitted">
+                    <div *ngFor="let error of control.validators">
+                        <span
+                            *ngIf="this.myForm.controls[control.name].hasError(error.validator.toLowerCase());">{{error.errormessage}}</span>
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="control.type === 'checkbox'">
+                <label>{{control.name}}</label>
+                <div class="form-check" *ngFor="let item of control.options">
+                    <input [name]="item.name" type="checkbox" [formControlName]="control.name" class="form-check-input">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        {{item.value}}
+                    </label>
+                </div>
+                <div class="text-danger" *ngIf="checkError(control.name) && submitted">
+                    <div *ngFor="let error of control.validators">
+                        <span
+                            *ngIf="this.myForm.controls[control.name].hasError(error.validator.toLowerCase());">{{error.errormessage}}</span>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="['date','datetime-local'].includes(control.type)">
+                <label>{{control.label}}</label><br>
+
+                <input [name]="control.name" type="{{control.type}}" [formControlName]="control.name"
+                [value]="">
+
+                <div class="text-danger" *ngIf="checkError(control.name) && submitted">
+                    <div *ngFor="let error of control.validators">
+                        <span
+                            *ngIf="this.myForm.controls[control.name].hasError(error.validator.toLowerCase());">{{error.errormessage}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="control.type === 'dropdown'">
+                <label>{{control.label}}</label><br>
+                <select [formControlName]="control.name">
+                    <option selected disabled value="0">Please select {{control.name}}</option>
+                    <option *ngFor="let item of control.options" value="{{item.key}}">{{item.value}}</option>
+                </select>
+                <div class="text-danger" *ngIf="checkError(control.name) && submitted">
+                    <div *ngFor="let error of control.validators">
+                        <span
+                            *ngIf="this.myForm.controls[control.name].hasError(error.validator.toLowerCase());">{{error.errormessage}}</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-3 offset-8" style="margin-left: 86.666667%;">
+
+            <button class="btn btn-light" (click)="myForm.reset()">clear</button>
+            <button class="btn btn-primary mx-1" (click)="submit()">Submit</button>
+        </div>
+    </div>
+
+</form>

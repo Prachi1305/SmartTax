@@ -7,18 +7,18 @@
 
 
 
-    <div id="sidebar" class="bg-info h-100 col-md-4" *ngIf="config.sidebar">
+    <div id="sidebar" class="bg-info h-100 col-3" *ngIf="config.sidebar">
 
       <app-sidebar></app-sidebar>
     </div>
-    <div class="container main col-8  h-100 py-3" id="content" [ngClass]="{'col-12':!config.sidebar}">
+    <div class="container main col-9 h-100 py-3" id="content" [ngClass]="{'col-12':!config.sidebar}">
       <router-outlet></router-outlet>
     </div>
   </div>
 
 </div>
 <div class="row w-100" id="footer" *ngIf="config.footer">
-  <div class="col-12 py-3 bg-danger">
+  <div class="col-12   bg-danger">
     <app-footer></app-footer>
   </div>
 </div>
