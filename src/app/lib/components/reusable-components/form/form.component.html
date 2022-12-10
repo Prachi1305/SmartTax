@@ -6,9 +6,14 @@
             <div *ngIf="['text','password','email','number','search','tel','url'].includes(control.type)">
 
 
-                <label>{{control.name}}</label>
+                <label>{{control.label}}</label>
                 <input [type]="control.type" [formControlName]="control.name" [value]="control.value"
-                    class="form-control">
+                    class="form-control"
+                    (change)="hasEvent(control.name,'change') && event(control.name,'change')"
+                    (keyup)="hasEvent(control.name,'keyup') && event(control.name,'keyup')"
+
+                    (hover)="hasEvent(control.name,'hover') && event(control.name,'hover')"
+                    >
                 <div class="text-danger" *ngIf="checkError(control.name) && submitted">
                     <div *ngFor="let error of control.validators">
                         <span
@@ -20,9 +25,14 @@
 
             <div *ngIf="control.type === 'textarea'">
 
-                <label>{{control.name}}</label>
+                <label>{{control.label}}</label>
                 <input [type]="control.type" [formControlName]="control.name" [value]="control.value"
-                    class="form-control">
+                    class="form-control"
+                    (change)="hasEvent(control.name,'change') && event(control.name,'change')"
+                    (keyup)="hasEvent(control.name,'keyup') && event(control.name,'keyup')"
+                   
+                    (hover)="hasEvent(control.name,'hover') && event(control.name,'hover')"
+                    >
                 <div class="text-danger" *ngIf="checkError(control.name) && submitted">
                     <div *ngFor="let error of control.validators">
                         <span
@@ -33,9 +43,15 @@
 
 
             <div *ngIf="control.type === 'range'">
-                <label>{{control.name}}</label>
+                <label>{{control.label}}</label>
                 <input [min]="control.options.min" [step]="control.options.step" [max]="control.options.max"
-                    type="range" [formControlName]="control.name" class="form-control-range" id="formControlRange">
+                    type="range" [formControlName]="control.name" class="form-control-range" id="formControlRange"
+                    (change)="hasEvent(control.name,'change') && event(control.name,'change')"
+                    (keyup)="hasEvent(control.name,'keyup') && event(control.name,'keyup')"
+                   
+                    (hover)="hasEvent(control.name,'hover') && event(control.name,'hover')"
+                    >
+                    {{myForm.controls[control.name].value}}
                 <div class="text-danger" *ngIf="checkError(control.name) && submitted">
                     <div *ngFor="let error of control.validators">
                         <span
@@ -49,7 +65,12 @@
                 <label>{{control.label}}</label>
                 <div class="form-check" *ngFor="let item of control.options">
                     <input [name]="item.name" type="radio" [formControlName]="control.name" [value]="item.key"
-                        class="form-check-input">
+                        class="form-check-input"
+                        (change)="hasEvent(control.name,'change') && event(control.name,'change')"
+                        (keyup)="hasEvent(control.name,'keyup') && event(control.name,'keyup')"
+                        
+                        (hover)="hasEvent(control.name,'hover') && event(control.name,'hover')"
+                        >
                     <label class="form-check-label" for="flexRadioDefault1">
                         {{item.value}}
                     </label>
@@ -66,7 +87,12 @@
             <div *ngIf="control.type === 'checkbox'">
                 <label>{{control.name}}</label>
                 <div class="form-check" *ngFor="let item of control.options">
-                    <input [name]="item.name" type="checkbox" [formControlName]="control.name" class="form-check-input">
+                    <input [name]="item.name" type="checkbox" [formControlName]="control.name" class="form-check-input"
+                    (change)="hasEvent(control.name,'change') && event(control.name,'change')"
+                    (keyup)="hasEvent(control.name,'keyup') && event(control.name,'keyup')"
+                    
+                    (hover)="hasEvent(control.name,'hover') && event(control.name,'hover')"
+                    >
                     <label class="form-check-label" for="flexRadioDefault1">
                         {{item.value}}
                     </label>
@@ -81,8 +107,13 @@
             <div *ngIf="['date','datetime-local'].includes(control.type)">
                 <label>{{control.label}}</label><br>
 
-                <input [name]="control.name" type="{{control.type}}" [formControlName]="control.name"
-                [value]="">
+                <input class="form-control" [name]="control.name" type="{{control.type}}" [formControlName]="control.name"
+                [value]="" [min]="control.min" [max]="control.max"
+                (change)="hasEvent(control.name,'change') && event(control.name,'change')"
+                (keyup)="hasEvent(control.name,'keyup') && event(control.name,'keyup')"
+                (keydown)="hasEvent(control.name,'keydown') && event(control.name,'keydown')"
+                (hover)="hasEvent(control.name,'hover') && event(control.name,'hover')"
+                >
 
                 <div class="text-danger" *ngIf="checkError(control.name) && submitted">
                     <div *ngFor="let error of control.validators">
@@ -94,7 +125,12 @@
 
             <div *ngIf="control.type === 'dropdown'">
                 <label>{{control.label}}</label><br>
-                <select [formControlName]="control.name">
+                <select [formControlName]="control.name" class="form-control"
+                (change)="hasEvent(control.name,'change') && event(control.name,'change')"
+                (keyup)="hasEvent(control.name,'keyup') && event(control.name,'keyup')"
+                (keydown)="hasEvent(control.name,'keydown') && event(control.name,'keydown')"
+                (hover)="hasEvent(control.name,'hover') && event(control.name,'hover')"
+                 >
                     <option selected disabled value="0">Please select {{control.name}}</option>
                     <option *ngFor="let item of control.options" value="{{item.key}}">{{item.value}}</option>
                 </select>

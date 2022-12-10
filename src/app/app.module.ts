@@ -9,6 +9,9 @@ import { FooterComponent } from './lib/components/footer/footer.component';
 import { SidebarComponent } from './lib/components/sidebar/sidebar.component';
 import { LayoutComponent } from './lib/components/layout/layout.component';
 import { ContentComponent } from './lib/components/content/content.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './lib/interceptors/jwt.interceptor';
+import { NotfoundComponent } from './lib/components/error-pages/notfound/notfound.component';
 
 
 @NgModule({
@@ -19,14 +22,15 @@ import { ContentComponent } from './lib/components/content/content.component';
     SidebarComponent,
     LayoutComponent,
     ContentComponent,
-    
+    NotfoundComponent,
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,HttpClientModule
 
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent],
   exports: []
 })

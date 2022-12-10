@@ -1,1 +1,3 @@
-<app-form [columns]="3"></app-form>
+<app-form [columns]="3" [formTemplate]="frmTemplate"
+[data]="data" (onSubmit)="onSubmit($event)" (changedControl)="triggeredEvent($event)"
+></app-form>
