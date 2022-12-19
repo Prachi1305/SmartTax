@@ -12,7 +12,8 @@ import { ContentComponent } from './lib/components/content/content.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './lib/interceptors/jwt.interceptor';
 import { NotfoundComponent } from './lib/components/error-pages/notfound/notfound.component';
-
+import * as $ from 'jquery';
+import * as DataTable from 'datatables.net';
 
 @NgModule({
   declarations: [

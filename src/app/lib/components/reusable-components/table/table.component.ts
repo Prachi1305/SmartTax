@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { debug } from 'console';
 
 @Component({
   selector: 'app-table',
@@ -7,7 +8,7 @@ import { EventEmitter } from '@angular/core';
   styleUrls: ['./table.component.css']
 })
 
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, AfterViewInit {
 
   @Input() tableData: Array<any> = []
   @Input() tableColumn: Array<any> = []
@@ -15,27 +16,43 @@ export class TableComponent implements OnInit {
   @Input() showEditBtn: boolean = false
   @Input() showDeleteBtn: boolean = false
 
-  @Output() onView: any =  new EventEmitter<any>();
+  @Output() onView: any = new EventEmitter<any>();
   @Output() onEdit: any = new EventEmitter<any>();
   @Output() onDelete: any = new EventEmitter<any>();
   DataKeys: Array<any> = []
-  constructor() { }
+  constructor(private cdref: ChangeDetectorRef) { }
+  ngAfterViewInit(): void {
+
+    $("#example").DataTable();
+    $("#example").DataTable().destroy();
+    $("#example").DataTable();
+
+
+
+  }
+  ngOnChanges(changes: SimpleChanges) {
+
+
+
+
+
+  }
 
   ngOnInit(): void {
     if (this.tableData.length > 0) {
       this.DataKeys = Object.keys(this.tableData[0]);
     }
+
+
   }
-  edit(item:any)
-  { 
+
+  edit(item: any) {
     this.onEdit.emit(item)
   }
-  view(item:any)
-  {
+  view(item: any) {
     this.onView.emit(item)
   }
-  delete(item:any)
-  {
+  delete(item: any) {
     this.onDelete.emit(item)
   }
 }

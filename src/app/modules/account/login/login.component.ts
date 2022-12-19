@@ -14,17 +14,25 @@ export class LoginComponent implements OnInit {
   constructor(private _layoutService: LayoutService, private storageService: StorageService) { }
 
   ngOnInit(): void {
-    
+
     // this.storageService.setLocalStorageItem("bacchi","Saurabh")
+
   }
 
-  view(item:any)
+  add()
   {
-   alert(JSON.stringify(item))
+    this.tableData.push({ "firstname": "Aditya", "lastname": "Deokar", "twitter": "@adityadeokar" })
   }
-  ngAfterContentInit():void
-  {
+  view(item: any) {
+    alert(JSON.stringify(item))
+  }
+  delete(item: any) {
+    
+    this.tableData.splice(this.tableData.indexOf(this.tableData.find(x=>x.firstname == item.firstname),1))
+  }
+  ngAfterContentInit(): void {
     this._layoutService.setConfig({ header: true, footer: true, sidebar: false })
+
   }
   ngOnDestroy(): void {
     this._layoutService.resetConfig();
