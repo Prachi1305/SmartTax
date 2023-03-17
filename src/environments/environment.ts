@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiURL:"",
+  apiURL:"https://localhost:44348/api/",
   key:"sercret112"
 };
 

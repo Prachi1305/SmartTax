@@ -1,0 +1,128 @@
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div>
+                    <button (click)="openModal()" class="col-md-2 form-btn float-end">
+                        <i class="fa fa-plus me-1"></i> Add New </button>
+                    <button class="col-md-2 form-btn float-end d-none" #openModalPopup data-bs-toggle="modal"
+                        href="#Modal">Add New Issue </button>
+                </div>
+            </div>
+            <div class="col-lg-10 mx-auto">
+                <div class="card px-5" style="border:1px solid black">
+                    <div class="card-body">
+                        <h3 class="card-title">Account Audit Issue</h3>
+                        <table class="table align-middle mb-2 cell-border compact" id="data-table-setup">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="col-md-2">Sr.No</th>
+                                    <th class="col-md-2">Issue</th>
+                                    <th class="col-md-2">Resolution</th>
+                                    <th class="col-md-2">Raised Date</th>
+                                    <th class="col-md-2">Due Date</th>
+                                    <th class="col-md-2">Closure Date</th>
+                                    <th class="col-md-1">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of auditIssueList; let i = index">
+                                    <td class="col-md-1">{{i+1}}</td>
+                                    <td class="col-md-2">{{item.ISSUE}}</td>
+                                    <td class="col-md-2">{{item.RESOLUTION}}</td>
+                                    <td class="col-md-2">{{item.RAISED_DATE | date}}</td>
+                                    <td class="col-md-2">{{item.DUE_DATE | date}}</td>
+                                    <td class="col-md-2">{{item.CLOSURE_DATE | date}}</td>
+                                    <td class="col-md-1"><i (click)="openModal(item.ID)">edit |</i>
+                                        <i (click)="deleteAccountAudit(item.ID)">delete</i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal" aria-labelledby="exampleModalLabel" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Issue</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeBtn></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3 gx-3" [formGroup]="issueForm">
+                    <div class="col-md-12">
+                        <textarea class="form-control-input notEmpty" formControlName="ISSUE"
+                            [ngClass]="{'invalid':submitted && f.ISSUE.errors}"></textarea>
+                        <label class="label-control">Issue
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="date" class="form-control-input notEmpty" formControlName="RAISED_DATE"
+                            [ngClass]="{'invalid':submitted && f.RAISED_DATE.errors}">
+                        <label class="label-control">Raised Date
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="date" class="form-control-input notEmpty" formControlName="DUE_DATE"
+                            [ngClass]="{'invalid':submitted && f.DUE_DATE.errors}">
+                        <label class="label-control">Due Date
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-md-12">
+                        <select class="form-control-select notEmpty" formControlName="STATUS"
+                            [ngClass]="{'invalid':submitted && f.STATUS.errors}">
+                            <option class="select-option" value="" selected disabled>Select Status
+                            </option>
+                            <option class="select-option" *ngFor="let item of statusList" value="{{item.NAME}}">
+                                {{item.NAME}}</option>
+                        </select>
+                        <label class="label-control">Status
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-md-12">
+                        <select class="form-control-select notEmpty" formControlName="SEVERITY"
+                            [ngClass]="{'invalid':submitted && f.SEVERITY.errors}">
+                            <option class="select-option" value="" selected disabled>Select Severity
+                            </option>
+                            <option class="select-option" *ngFor="let item of severityList" value="{{item.NAME}}">
+                                {{item.NAME}}</option>
+                        </select>
+
+                        <label class="label-control">Severity
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-md-12" *ngIf="isUpdate">
+                        <textarea class="form-control-input notEmpty" formControlName="RESOLUTION"></textarea>
+                        <label class="label-control">Resolution
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="col-md-12" *ngIf="isUpdate">
+                        <input type="date" class="form-control-input notEmpty" formControlName="CLOSURE_DATE">
+                        <label class="label-control">Closure Date
+                            <span class="text-danger">*</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <button *ngIf="!isUpdate" class="form-control-submit-button col-md-2 mt-3"
+                            (click)="InsertAudit()">SUBMIT</button>
+                        <button *ngIf="isUpdate" class="form-control-submit-button col-md-2 mt-3"
+                            (click)="updateAccountAuditIssue()">UPDATE</button>
+                        <button (click)="ClearForm()"
+                            class="form-control-submit-button col-md-2 mt-3 mx-3">CLEAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

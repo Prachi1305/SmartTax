@@ -1,0 +1,93 @@
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="card px-5" style="border:1px solid black">
+                    <div class="card-body">
+                        <h3 class="card-title">Balance Sheet</h3>
+                        <form class="row g-3 gx-5" [formGroup]="balancesheetForm">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="text-center">
+                                            <h5>Assets</h5>
+                                        </div>
+                                        <div class="text-end">
+                                            <a><i (click)="addAssets()">add</i></a>
+                                        </div>
+                                        <div class="row mt-3" *ngFor="let item of f1; let j= index" [formGroup]="item">
+                                            <div class="col-md-6">
+                                                <select class="form-control-select notEmpty" formControlName="ASSET">
+                                                    <option class="select-option" value="" selected disabled>Select
+                                                        Assets
+                                                    </option>
+                                                    <option class="select-option" *ngFor="let i of assetsList"
+                                                        value="{{i.NAME}}">{{i.NAME}}</option>
+                                                </select>
+                                                <label class="label-control">Select Assets
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control-input notEmpty"
+                                                    formControlName="ASSET_AMOUNT">
+                                                <label class="label-control">Amount
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-center">
+                                            <h5>Liabilities</h5>
+                                        </div>
+                                        <div class="text-end">
+                                            <a><i (click)="addLiabilities()">add</i></a>
+                                        </div>
+                                        <div class="row mt-3" *ngFor="let item of f2; let j= index" [formGroup]="item">
+                                            <div class="col-md-6">
+                                                <select class="form-control-select notEmpty">
+                                                    <option class="select-option" value="" selected disabled>Select
+                                                        Liabilities
+                                                    </option>
+                                                    <option class="select-option" *ngFor="let i of LiabilityList"
+                                                        value="{{i.NAME}}">{{i.NAME}}</option>
+                                                </select>
+                                                <label class="label-control">Select Liabilities
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control-input notEmpty">
+                                                <label class="label-control">Amount
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mt-4">
+                                        <input type="file" class="form-control-file notEmpty" (change)="uploadFile($event)">
+                                        <label class="label-control">Upload Balance Sheet
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <button class="form-control-submit-button col-md-2 mt-3"
+                                        (click)="SaveBalanceSheet()">Save</button>
+                                    <button class="form-control-submit-button col-md-2 mt-3 mx-3">Clear</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a class="btn-outline-reg back" href="home/company-master-list">BACK</a>
+            </div>
+        </div>
+    </div>
+
+</div>

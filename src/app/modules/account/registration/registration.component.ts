@@ -1,6 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiHelperService } from 'src/app/lib/services/api-helpers/api-helper.service';
+import { CommonService } from 'src/app/lib/services/common-service/common.service';
 import { LayoutService } from 'src/app/lib/services/layout-service/layout.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registration',
@@ -8,191 +12,129 @@ import { LayoutService } from 'src/app/lib/services/layout-service/layout.servic
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  data: any
-  lstCity: Array<any> = [{ key: 'MUM', value: 'Mumbai', code: "IND" },
-  { key: 'NY', value: 'New York', code: "USA" },
-  { key: 'TOR', value: 'Toronto', code: "CAN" }]
-  frmTemplate: any;
+  
+  submitted: boolean = false;
+  userForm: FormGroup;
+  companylist: any[] = [];
+  isUpdate: boolean = false;
+  userList: any[] = [];
 
-  constructor(private _layoutService: LayoutService, private cdref: ChangeDetectorRef,private _apiService:ApiHelperService) { }
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _apiHelper: ApiHelperService,
+    private _commonService: CommonService,
+    private _layoutService: LayoutService,
+  ) { }
 
   ngOnInit(): void {
-    //this._layoutService.setConfig({ header: true, footer: true, sidebar: true })
-    this._apiService.get("https://jsonplaceholder.typicode.com/todos/1").subscribe(resp=>{
-      alert(JSON.stringify(resp))
-    })
+    this.userForm = this._formBuilder.group({
+      ID: [0],
+      USERNAME: ['', Validators.required],
+      PASSWORD: ['', Validators.required],
+      EMPLOYEE_NAME: ['', Validators.required],
+      EMPLOYEE_CODE: [],
+      DESIGNATION: [],
+      EMAIL: [],
+      COMPANY_ID: ['', Validators.required],
+      ROLE: [],
+      STATUS: [false],
+    });
 
-     this.frmTemplate = {
-        "controls": [
-          {
-            "name": "firstName",
-            "label": "First name:",
-            "value": "",
-            "type": "text",
+    this.GetDropDown();
 
-            "validators": [
-              {
-                "validator": "required",
-                "errormessage": "First name is required."
-              },
-              {
-                "validator": "minlength",
-                "value": 10,
-                "errormessage": "First name should be 10 characters long."
-              }],
-            "events": ["change"]
-          },
-          {
-            "name": "middleName",
-            "label": "Middle name:",
-            "value": "",
-            "type": "text",
+    this.GetUserList();
+  }
 
-            "validators": [
-              {
-                "validator": "required",
-                "errormessage": "Middle name is required."
-              },
-              ],
-            "events": ["change"]
-          },
-          {
-            "name": "lastName",
-            "label": "Last name:",
-            "value": "",
-            "type": "text",
-            "validators": [
-              {
-                "validator": "required",
-                "errormessage": "Last name is required."
-              },
-              {
-                "validator": "minlength",
-                "value": 10,
-                "errormessage": "Last name should be 10 characters long."
-              }]
-          },
-          {
-            "name": "comments",
-            "label": "Comments",
-            "value": null,
-            "type": "textarea",
-            "validators": [
-              {
-                "validator": "minlength",
-                "value": 20,
-                "errormessage": "Comments should be 20 characters long."
-              }
-            ]
-          },
-          {
-            "name": "size",
-            "label": "Size",
-            "value": null,
-            "type": "range",
-            "options": {
-              "min": "0",
-              "max": "100",
-              "step": "1",
-              "icon": "sunny"
-            },
-            "validators": [{}]
-          },
-          {
-            "name": "Gender",
-            "label": "Please select your gender.",
-            "value": null,
-            "type": "radio",
-            "options": [
-              { key: 'M', value: 'Male' },
-              { key: 'F', value: 'Female' },
-              { key: 'O', value: 'Other' },
-            ],
-            "validators": [
-              { "validator": "required", "errormessage": "Gender is required" }
-            ]
-          },
-          {
-            "name": "Sports",
-            "label": "Your favourite sport?",
-            "value": 0,
-            "type": "checkbox",
-            "options": [
-              { key: 'Cricket', value: 'Cricket' },
-              { key: 'Football', value: 'Football' },
-              { key: 'Hockey', value: 'Hockey' },
-            ],
-            "validators": [{}]
-          },
-          {
-            "name": "state",
-            "label": "State",
-            "value": null,
-            "type": "dropdown",
-            "events": ["change", "keyup", "keydown", "click"],
-            "options": [
-              { key: 'IND', value: 'India' },
-              { key: 'USA', value: 'America' },
-              { key: 'CAN', value: 'Canada' },
-            ],
-            "validators": [
-              {
-                "validator": "required",
-                "errormessage": "State is required."
-              }
-            ]
-          },
-          {
-            "name": "City",
-            "label": "City",
-            "value": null,
-            "type": "dropdown",
-            "events": ["change", "keyup", "keydown", "click"],
-            "options": [
+  get f() {
+    return this.userForm.controls;
+  }
 
-            ],
-            "validators": [
-              {
-                "validator": "required",
-                "errormessage": "City is required."
-              }
-            ]
-          },
-          {
-            "name": "Date",
-            "label": "DOB",
-            "value": null,
-            "min": new Date().toISOString().split('T')[0],
-            "max": "2023-01-15",
-            "type": "date",
-            "validators": [
-              {
-                "validator": "required",
-                "errormessage": "City is required."
-              }
-            ]
-          }
-        ]
+  GetDropDown() {
+
+    this._apiHelper.get('Company/GetCompany').subscribe((res: any) => {
+      if (res.ResponseCode == 200) {
+        this.companylist = res.Data;
       }
-    setTimeout(() => {
-     
-      //this.data = { "firstName": "ASSSSSSSSSSSSSSSSSSSSSSSSS", "lastName": "ASSSSSSSSSSSSSSSSSSSSSSSS", "comments": "ASDDDDDDDDDDDDDDDDDDDDDDDDDDDDD", "size": 76, "Gender": "F", "Sports": true, "City": "Hockey", "Date": "2022-12-16" }
+    });
 
-    }, 2000);
-
-    
   }
 
-  triggeredEvent(event: any) {
-    debugger
-    if (event.event == 'change' && event.control == 'state') {
-      let frm = this.frmTemplate.controls as Array<any>
-      frm.find(x => x.name == 'City').options = []
-      frm.find(x => x.name == 'City').options = this.lstCity.filter(x => x.code == event.value)
-      this.frmTemplate.controls = JSON.parse(JSON.stringify(frm)) as Array<any>;
-
+  InserUser() {
+    this.submitted = true;
+    if (this.userForm.invalid) {
+      return;
     }
+
+    this._apiHelper.post('Account/InsertUser', this.userForm.value).subscribe((res: any) => {
+      if (res.responseCode == 200) {
+        this._commonService.showSuccessMessage('User Created Successfully');
+        this.GetUserList();
+        this.Clear();
+      }
+    });
   }
+
+  GetUserList() {
+    this._apiHelper.get('Account/GetUserList').subscribe((res: any) => {
+      if (res.ResponseCode == 200) {
+        this.userList = res.Data;
+      }
+    });
+  }
+
+  GetUserDetails(Id: number) {
+    this.isUpdate = true;
+    this._apiHelper.get('Account/GetUserDetails?&ID=' + Id).subscribe((res: any) => {
+      if (res.ResponseCode == 200) {
+        this.userForm.patchValue(res.Data);
+      }
+    });
+  }
+
+  UpdateUser() {
+    this.submitted = true;
+    if (this.userForm.invalid) {
+      return;
+    }
+
+    this._apiHelper.put('Account/UpdateUser', this.userForm.value)
+      .subscribe((res: any) => {
+        if (res.responseCode == 200) {
+          this._commonService.showSuccessMessage('Company Master updated successfully !');
+          this.GetUserList();
+          this.Clear();
+        }
+      });
+  }
+
+  deleteUser(Id: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._apiHelper.delete('/api/Account/DeleteUser?ID=' + Id)
+          .subscribe((res: any) => {
+            if (res.ResponseCode == 200) {
+              Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+              this.GetUserList();
+            }
+          });
+      }
+    });
+  }
+
+  Clear() {
+    this.userForm.reset();
+    this.userForm.get("COMPANY_ID")?.setValue('');
+    this.isUpdate = false;
+  }
+  
   ngAfterContentInit(): void {
     this._layoutService.setConfig({ header: true, footer: true, sidebar: true })
   }
@@ -201,9 +143,6 @@ export class RegistrationComponent implements OnInit {
   }
 
 
-  onSubmit(data: any) {
-    alert(JSON.stringify(data))
-  }
 
 
 

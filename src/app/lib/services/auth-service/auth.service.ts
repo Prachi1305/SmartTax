@@ -7,8 +7,5 @@ export class AuthService {
 
   constructor() { }
 
-  IsAuthenticated()
-  {
-    return true;
-  }
+
 }

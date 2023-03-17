@@ -1,0 +1,63 @@
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div class="mx-auto">
+                <div class="container">
+                    <h1>You are successfully logged in</h1>
+                    <button (click)="logout()" class="btn btn-danger">Logout</button>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- <h3 class="card-title">Landing Page</h3> -->
+                        <form [formGroup]="landingForm">
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <select class="form-control-select notEmpty" (change)="getAssYear($event)"
+                                        [ngClass]="{'invalid':submitted && f.COMPANY_ID.errors}"
+                                        formControlName="COMPANY_ID">
+                                        <option class="select-option" value="" selected disabled>Select Company
+                                        </option>
+                                        <option class="select-option" *ngFor="let item of companylist"
+                                            value="{{item.ID}}">{{item.NAME}}</option>
+                                    </select>
+                                    <label class="label-control">Comapny
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select class="form-control-select notEmpty"
+                                        [ngClass]="{'invalid':submitted && f.ASSESSMENT_YEAR.errors}"
+                                        formControlName="ASSESSMENT_YEAR">
+                                        <option class="select-option" value="" selected disabled>Select Assessment Year
+                                        </option>
+                                        <option class="select-option" *ngFor="let item of assessmentYearList"
+                                            value="{{item.ASSESSMENT_YEAR}}">
+                                            {{item.ASSESSMENT_YEAR}}</option>
+                                    </select>
+                                    <label class="label-control">Assessment Year
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row text-end mt-1">
+                                <a href="javascript:void(0)" (click)="AddUpdateAssYear()">
+                                    Add/Update Assessment Year</a>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <button class="form-control-submit-button col-md-4 mt-3"
+                                        (click)="onSubmit()">Submit</button>
+                                    <button class="form-control-submit-button col-md-4 mx-3 mt-3">Clear</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a class="btn-outline-reg back" href="home/company-master-list">BACK</a>
+            </div>
+        </div>
+    </div>
+
+</div>

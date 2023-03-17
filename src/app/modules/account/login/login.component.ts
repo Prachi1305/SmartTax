@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ApiHelperService } from 'src/app/lib/services/api-helpers/api-helper.service';
 import { LayoutService } from 'src/app/lib/services/layout-service/layout.service';
 import { StorageService } from 'src/app/lib/services/storage-service/storage.service';
 
@@ -9,27 +12,38 @@ import { StorageService } from 'src/app/lib/services/storage-service/storage.ser
 })
 export class LoginComponent implements OnInit {
 
-  tableColumn: Array<any> = ["Sr.No", "First Name", "Last Name", "Twitter"]
-  tableData: Array<any> = [{ "firstname": "Aditya", "lastname": "Deokar", "twitter": "@adityadeokar" }, { "firstname": "Rutuja", "lastname": "Deokar", "twitter": "@rutujadeokar" }]
-  constructor(private _layoutService: LayoutService, private storageService: StorageService) { }
+  loginForm: FormGroup;
+  constructor(
+    private _router: Router,
+    private _layoutService: LayoutService,
+    private _apiHelper: ApiHelperService,
+    private _formbuilder: FormBuilder,
+    private _enc:StorageService
+  ) {
+
+  }
 
   ngOnInit(): void {
-
-    // this.storageService.setLocalStorageItem("bacchi","Saurabh")
-
+    this.loginForm = this._formbuilder.group({
+      USERNAME: [''],
+      PASSWORD: [''],
+    })
   }
 
-  add()
-  {
-    this.tableData.push({ "firstname": "Aditya", "lastname": "Deokar", "twitter": "@adityadeokar" })
+  login(): void {
+    this._apiHelper.post('Account/Authenticate', this.loginForm.value).subscribe((res: any) => {
+      console.log(res.isAuthenticated);
+      if (res.isAuthenticated == true) {
+        this._enc.setLocalStorageItem('currentUser', JSON.stringify(res));
+        this._router.navigate(["/assessment-year/user-landing"]);
+      }
+      else {
+        alert(res.message);
+      }
+    })
+
   }
-  view(item: any) {
-    alert(JSON.stringify(item))
-  }
-  delete(item: any) {
-    
-    this.tableData.splice(this.tableData.indexOf(this.tableData.find(x=>x.firstname == item.firstname),1))
-  }
+
   ngAfterContentInit(): void {
     this._layoutService.setConfig({ header: true, footer: true, sidebar: false })
 

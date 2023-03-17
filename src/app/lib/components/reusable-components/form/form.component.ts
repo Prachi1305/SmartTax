@@ -103,7 +103,6 @@ export class FormComponent implements OnInit {
 
   event(control: any,event:string) {
     //alert(this.myForm.get(control)?.value)
-    console.log(control,event)
     this.changedControl.emit({event:event,control:control,value:this.myForm.controls[control].value})
   }
 

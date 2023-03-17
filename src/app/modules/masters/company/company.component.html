@@ -1,0 +1,148 @@
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="card px-5" style="border:1px solid black">
+                    <div class="card-body">
+                        <h3 class="card-title">Company Master</h3>
+                        <form class="row g-3 gx-5" [formGroup]="companyForm">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" maxlength="20"
+                                    [ngClass]="{'invalid':submitted && f.CIN_NO.errors}" formControlName="CIN_NO">
+                                <label class="label-control">CIN No
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" maxlength="50"
+                                    [ngClass]="{'invalid':submitted && f.NAME.errors}" formControlName="NAME">
+                                <label class="label-control">Name of the Entity / Individual
+                                    <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" maxlength="50"
+                                    formControlName="FORMER_NAME">
+                                <label class="label-control">Former Name if any change</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" maxlength="20"
+                                    formControlName="SHORT_NAME">
+                                <label class="label-control">Short Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" maxlength="10"
+                                    [ngClass]="{'invalid':submitted && f.PAN.errors}" formControlName="PAN">
+                                <label class="label-control">PAN
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control-input notEmpty"
+                                    [ngClass]="{'invalid':submitted && f.DATE_OF_INCORPORATION.errors}"
+                                    formControlName="DATE_OF_INCORPORATION">
+                                <label class="label-control">Date of Birth / Date of Incorporation
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control-select notEmpty"
+                                    [ngClass]="{'invalid':submitted && f.STATUS.errors}" formControlName="STATUS">
+                                    <option class="select-option" value="" selected disabled>Select Status
+                                    </option>
+                                    <option class="select-option" *ngFor="let item of statusList" [value]="item.NAME">
+                                        {{item.NAME}}</option>
+                                </select>
+                                <label class="label-control">Status
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="textarea" class="form-control-input notEmpty" formControlName="ADDRESS"
+                                    maxlength="50">
+                                <label class="label-control">Address</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" maxlength="20"
+                                    formControlName="CITY">
+                                <label class="label-control">City</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control-select notEmpty"
+                                    [ngClass]="{'invalid':submitted && f.STATE.errors}" formControlName="STATE">
+                                    <option class="select-option" value="" selected disabled>Select State
+                                    </option>
+                                    <option class="select-option" *ngFor="let item of stateList" [value]="item.NAME">
+                                        {{item.NAME}}</option>
+                                </select>
+                                <label class="label-control">State
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" maxlength="10"
+                                    (keypress)="numericOnly($event)" formControlName="PIN">
+                                <label class="label-control">PIN</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" formControlName="MOBILE_NO_1"
+                                    (keypress)="numericOnly($event)" maxlength="10">
+                                <label class="label-control">Mobile No. 1</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" formControlName="MOBILE_NO_2"
+                                    (keypress)="numericOnly($event)" maxlength="10">
+                                <label class="label-control">Mobile No. 2</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" maxlength="30"
+                                    formControlName="EMAIL_ID_1">
+                                <label class="label-control">Email ID 1</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" maxlength="30"
+                                    formControlName="EMAIL_ID_2">
+                                <label class="label-control">Email ID 2</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty"
+                                    formControlName="NATURE_OF_BUSINESS" maxlength="50">
+                                <label class="label-control">Nature of Business or profession </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" formControlName="INCOME_TAX_WARD"
+                                    maxlength="50">
+                                <label class="label-control">Income tax Ward / Circle</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty"
+                                    formControlName="OTHER_CONTACT_PERSON" maxlength="50">
+                                <label class="label-control">Other Contact Person</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control-select notEmpty"
+                                    [ngClass]="{'invalid':submitted && f.VERTICALS.errors}" formControlName="VERTICALS">
+                                    <option class="select-option" value="" selected disabled>Select Verticals
+                                    </option>
+                                    <option class="select-option" *ngFor="let item of verticalsList"
+                                        [value]="item.NAME">{{item.NAME}}</option>
+                                </select>
+                                <label class="label-control">Verticals/Groups
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button *ngIf="!isUpdate" class="form-control-submit-button col-md-2 mt-3"
+                                    (click)="InsertCompanyMaster()">SAVE</button>
+                                <button *ngIf="isUpdate" class="form-control-submit-button col-md-2 mt-3"
+                                    (click)="UpdateCompanyMaster()">UPDATE</button>
+                                <button type="submit" (click)="Clear()"
+                                    class="form-control-submit-button col-md-2 mt-3 mx-3">CLEAR</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a class="btn-outline-reg back" routerLink="/masters/company-list">BACK</a>
+            </div>
+        </div>
+    </div>
+</div>

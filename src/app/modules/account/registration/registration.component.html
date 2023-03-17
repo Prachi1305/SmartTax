@@ -1,3 +1,111 @@
-<app-form [columns]="3" [formTemplate]="frmTemplate"
-[data]="data" (onSubmit)="onSubmit($event)" (changedControl)="triggeredEvent($event)"
-></app-form>
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="card px-5" style="border:1px solid black">
+                    <div class="card-body">
+                        <h3 class="card-title">User Master</h3>
+                        <form class="row g-3 gx-5" [formGroup]="userForm">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty"
+                                    [ngClass]="{'invalid':submitted && f.USERNAME.errors}" formControlName="USERNAME">
+                                <label class="label-control">Username
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty"
+                                    [ngClass]="{'invalid':submitted && f.PASSWORD.errors}" formControlName="PASSWORD">
+                                <label class="label-control">Password
+                                    <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty"
+                                    [ngClass]="{'invalid':submitted && f.EMPLOYEE_NAME.errors}"
+                                    formControlName="EMPLOYEE_NAME">
+                                <label class="label-control">Employee Name
+                                    <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" formControlName="EMPLOYEE_CODE">
+                                <label class="label-control">Employee Code</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" formControlName="DESIGNATION">
+                                <label class="label-control">Designation</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control-input notEmpty" formControlName="EMAIL">
+                                <label class="label-control">Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control-select notEmpty"
+                                    [ngClass]="{'invalid':submitted && f.COMPANY_ID.errors}"
+                                    formControlName="COMPANY_ID">
+                                    <option class="select-option" value="" selected disabled>Select Company
+                                    </option>
+                                    <option class="select-option" *ngFor="let item of companylist" value="{{item.ID}}">
+                                        {{item.NAME}}</option>
+                                </select>
+                                <label class="label-control">Company
+                                    <span class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="textarea" class="form-control-input notEmpty" formControlName="ROLE">
+                                <label class="label-control">Role</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="checkbox" formControlName="STATUS"> Active
+                            </div>
+                            <div class="form-group">
+                                <button class="form-control-submit-button col-md-2 mt-3" *ngIf="!isUpdate" (click)="InserUser()">SAVE</button>
+                                <button class="form-control-submit-button col-md-2 mt-3" *ngIf="isUpdate" (click)="UpdateUser()" >UPDATE</button>
+                                <button class="form-control-submit-button col-md-2 mt-3 mx-3" (click)="Clear()">CLEAR</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="ex-basic-2 mt-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 mx-auto">
+                                <div class="card px-5" style="border:1px solid black">
+                                    <div class="card-body">
+                                        <table class="table align-middle mb-2 cell-border compact"
+                                            id="data-table-setup">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Username</th>
+                                                    <th>Employee Name</th>
+                                                    <th>Company</th>
+                                                    <th>Role</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of userList; let i = index">
+                                                    <td>{{i+1}}</td>
+                                                    <td>{{item.USERNAME}}</td>
+                                                    <td>{{item.EMPLOYEE_NAME}}</td>
+                                                    <td>{{item.COMPANY_NAME}}</td>
+                                                    <td>{{item.ROLE}}</td>
+                                                    <td>
+                                                        <i (click)="GetUserDetails(item.ID)">edit |</i>
+                                                        <i (click)="deleteUser(item.ID)">delete</i>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

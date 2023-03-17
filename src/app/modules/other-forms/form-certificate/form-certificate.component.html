@@ -1,0 +1,331 @@
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="card px-5" style="border:1px solid black">
+                    <div class="card-body">
+                        <h3 class="card-title">Form-281</h3>
+                        <h5 class="card-title">PART A - GENERAL PARTICULARS</h5>
+                        <form class="row gx-5 g-3 px-5" [formGroup]="partAForm">
+                            <div class="col-md-6">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" formControlName="FIRST_NAME">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" formControlName="MIDDLE_NAME">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" formControlName="LAST_NAME">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Sex</label>
+                                <fieldset class="row mb-3">
+                                    <div class="col-sm-10">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="GENDER" id="gridRadios1"
+                                                value="Male" formControlName="GENDER">
+                                            <label class="form-check-label" for="gridRadios1">
+                                                Male
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="GENDER" id="gridRadios2"
+                                                value="Female" formControlName="GENDER">
+                                            <label class="form-check-label" for="gridRadios2">
+                                                Female
+                                            </label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Date of Birth/Date of
+                                    Incorporation</label>
+                                <input type="date" class="form-control" formControlName="DATE_OF_BIRTH">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Designation of Assessing officer
+                                    (Ward/Circle)</label>
+                                <input type="text" class="form-control" formControlName="DESIGNATION">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Flat/Door/Block No</label>
+                                <input type="text" class="form-control" formControlName="FLAT">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Name of Premises/Building</label>
+                                <input type="text" class="form-control" formControlName="NAME_OF_PREMISES">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Road/Street/Post Office</label>
+                                <input type="text" class="form-control" formControlName="ROAD">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Area/Locality</label>
+                                <input type="text" class="form-control" formControlName="AREA">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Town/City/District</label>
+                                <input type="text" class="form-control" formControlName="TOWN">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">State</label>
+                                <input type="text" class="form-control" formControlName="STATE">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Pin code</label>
+                                <input type="text" class="form-control" formControlName="PIN_CODE">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">E-mail Address</label>
+                                <input type="text" class="form-control" formControlName="EMAIL_ADDRESS">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Residential/Office Phone No. with STD
+                                    Code</label>
+                                <input type="text" class="form-control" formControlName="PHONE_NO">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Mobile No. With Country Code</label>
+                                <input type="text" class="form-control" formControlName="MOBILE_NO">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Fill only one - Resident/ Non-Resident/ Resident
+                                    but not ordinarily resident</label>
+                                <input type="text" class="form-control" formControlName="RESIDENT_TYPE">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Fill Status (Only one)
+                                    Individual/ HUF/ FIRM/ AOP/ BOI/ Company/ Others
+                                </label>
+                                <input type="text" class="form-control" formControlName="STATUS">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Individual</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">PART B <br>
+                            POSITION OF OUTSTANDING DEMAND AS ON THE DATE OF APPLICATION </h5>
+
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: right;">
+                                <a (click)="addTableRow()"><i>add</i></a>
+                            </div>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">&nbsp;</th>
+                                    <th scope="col">Assessment Year</th>
+                                    <th scope="col">Demand Section</th>
+                                    <th scope="col">Outstanding Demand (In Rs.)</th>
+                                    <th scope="col">Particulars of stay of demand, if any</th>
+                                    <th scope="col">Remarks</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dynamic of f; let i = index;" [formGroup]="dynamic">
+                                    <th scope="row">B{{i+1}}</th>
+                                    <td>
+                                        <input formControlName="ASSESSMENT_YEAR" class="form-control" type="number" />
+                                    </td>
+                                    <td>
+                                        <input formControlName="DEMAND_SECTION" class="form-control" type="text" />
+                                    </td>
+                                    <td>
+                                        <input formControlName="OUTSTANDING_DEMAND" class="form-control"
+                                            type="number" />
+                                    </td>
+                                    <td>
+                                        <input formControlName="PARTICULARS_OF_STAY" class="form-control" type="text" />
+                                    </td>
+                                    <td>
+                                        <input formControlName="REMARKS" class="form-control" type="text" />
+                                    </td>
+                                    <td>
+                                        <a (click)="deleteRow(i)"><i>delete</i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">PART C <br><br>
+                            Particulars of land, building, machinery, plant, shares, securities and fixed deposits
+                            in banks, to the extent to which any of the assets aforesaid does not form part of the
+                            stock-in-trade of the business of the assessee as on the date of application </h5>
+
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: right;">
+                                <a (click)="addTableRow2()"><i>add</i></a>
+                            </div>
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">&nbsp;</th>
+                                    <th scope="col">Description of the Asset</th>
+                                    <th scope="col">Particulars of Place where Situated</th>
+                                    <th scope="col">Value of the Asset as Shown in the Books of Account as on the Date
+                                        of Application (In Rs.)</th>
+                                    <th scope="col">Whether any Charge Exists in Part or Full on the Asset</th>
+                                    <th scope="col">Remarks [Please Indicate the Amount (in Rs.) of Charge Existing On
+                                        the Asset]</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dynamic of f2; let i = index;" [formGroup]="dynamic">
+                                    <th scope="row">C{{i+1}}</th>
+                                    <td>
+                                        <input formControlName="ASSET_DESCRIPTION" class="form-control" type="text" />
+                                    </td>
+                                    <td>
+                                        <input formControlName="PARTICULARS_OF_PLACE" class="form-control"
+                                            type="text" />
+                                    </td>
+                                    <td>
+                                        <input formControlName="VALUE_OF_THE_ASSET" class="form-control" type="text" />
+                                    </td>
+                                    <td>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="IS_CHARGE_EXISTS"
+                                                id="inlineRadio1" value="Yes" formControlName="IS_CHARGE_EXISTS">
+                                            <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="IS_CHARGE_EXISTS"
+                                                id="inlineRadio2" value="No" formControlName="IS_CHARGE_EXISTS">
+                                            <label class="form-check-label" for="inlineRadio2">No</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input formControlName="REMARKS" class="form-control" type="text" />
+                                    </td>
+                                    <td>
+                                        <a (click)="deleteRow2(i)"><i>delete</i></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">PART D <br><br>
+                            The particulars of the proposed transaction(s) transferring the assets/creating charge for
+                            which permission is sought
+                        </h5>
+                        <form [formGroup]="partAForm">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-md-1" style="font-weight: bold;">D1</td>
+                                        <td class="col-md-6">Name of the Party/Parties with Whom Transaction is Proposed
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" formControlName="NAME_OF_PARTY">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-1" style="font-weight: bold;">D2</td>
+                                        <td class="col-md-6">Address of the Party/Parties with Whom Transaction is
+                                            Proposed
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" formControlName="ADDRESS_OF_PARTY">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-1" style="font-weight: bold;">D3</td>
+                                        <td class="col-md-6">PAN of the Party/Parties with Whom Transaction is Proposed
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" formControlName="PAN_OF_PARTY">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-1" style="font-weight: bold;">D4</td>
+                                        <td class="col-md-6">The Complete Particulars of the Assets Proposed to be
+                                            Transferred or for which a
+                                            Charge is to be Created</td>
+                                        <td>
+                                            <input type="text" class="form-control"
+                                                formControlName="PARTICULARS_OF_ASSET">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-1" style="font-weight: bold;">D5</td>
+                                        <td class="col-md-6">Expected Date of Transfer or Creation of Charge
+                                            (DD/MM/YYYY)
+                                        </td>
+                                        <td>
+                                            <input type="date" class="form-control"
+                                                formControlName="EXPECTED_DATE_OF_TRANSFER">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-1" style="font-weight: bold;">D6</td>
+                                        <td class="col-md-6">The Period For Which Charge is being Created (If
+                                            Applicable)
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" formControlName="PERIOD">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-1" style="font-weight: bold;">D7</td>
+                                        <td class="col-md-6">The Period For Which Charge is being Created (If
+                                            Applicable)
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" formControlName="ADDITIONAL_INFO">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-1" style="font-weight: bold;">D8</td>
+                                        <td class="col-md-6">Nature of Transaction</td>
+                                        <td>
+                                            <input type="text" class="form-control"
+                                                formControlName="NATURE_OF_TRANSACTION">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-1" style="font-weight: bold;">D9</td>
+                                        <td class="col-md-6">How the assessee proposes to pay or indemnify the Income
+                                            Tax
+                                            Department for
+                                            outstanding demand disclosed?</td>
+                                        <td>
+                                            <input type="text" class="form-control"
+                                                formControlName="ASSESSEE_OUTSTANDING_DEMAND">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-1" style="font-weight: bold;">D10</td>
+                                        <td class="col-md-6">Whether Credit Information Report (CIR) from Credit
+                                            Information
+                                            Bureau (India) Ltd.
+                                            (CIBIL) is available</td>
+                                        <td>
+                                            <input type="text" class="form-control"
+                                                formControlName="IS_CIR_CIBIL_AVAILABLE">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <div class="mb-5">
+                        <button type="submit" class="btn btn-primary" style="margin-right: 20px;"
+                            (click)="SubmitForm()">Save Draft</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

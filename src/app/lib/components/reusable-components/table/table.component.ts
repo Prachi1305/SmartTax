@@ -12,6 +12,8 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   @Input() tableData: Array<any> = []
   @Input() tableColumn: Array<any> = []
+  @Input() tableKeys: Array<any> = []
+  
   @Input() showViewBtn: boolean = false
   @Input() showEditBtn: boolean = false
   @Input() showDeleteBtn: boolean = false
@@ -23,24 +25,22 @@ export class TableComponent implements OnInit, AfterViewInit {
   constructor(private cdref: ChangeDetectorRef) { }
   ngAfterViewInit(): void {
 
+    
     $("#example").DataTable();
     $("#example").DataTable().destroy();
     $("#example").DataTable();
-
+    
 
 
   }
   ngOnChanges(changes: SimpleChanges) {
-
-
-
-
-
+  this.tableData = changes.tableData.currentValue;
+ 
   }
 
   ngOnInit(): void {
     if (this.tableData.length > 0) {
-      this.DataKeys = Object.keys(this.tableData[0]);
+      this.DataKeys = this.tableKeys;
     }
 
 

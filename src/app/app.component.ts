@@ -18,8 +18,6 @@ export class AppComponent implements OnInit {
 
     this._layoutService.getConfig().pipe().subscribe(res => {
       this.config = res
-      console.log(res)
-
 
     })
   }

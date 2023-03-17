@@ -1,0 +1,289 @@
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="card px-5" style="border:1px solid black">
+                    <div class="card-body">
+                        <h3 class="card-title">Assessment Year Master</h3>
+                        <form class="row g-3 gx-5" [formGroup]="assessmentForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <select class="form-control-select notEmpty"
+                                        [ngClass]="{'invalid':submitted && f.COMPANY_ID.errors}"
+                                        formControlName="COMPANY_ID">
+                                        <option class="select-option" value="" selected disabled>Select Company
+                                        </option>
+                                        <option class="select-option" *ngFor="let item of companylist"
+                                            value="{{item.ID}}">{{item.NAME}}</option>
+                                    </select>
+                                    <label class="label-control">Comapny
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control-select notEmpty"
+                                        [ngClass]="{'invalid':submitted && f.ASSESSMENT_YEAR.errors}"
+                                        formControlName="ASSESSMENT_YEAR">
+                                        <option class="select-option" value="" selected disabled>Select Assessment Year
+                                        </option>
+                                        <option class="select-option" *ngFor="let item of assessmentYearList"
+                                            value="{{item.NAME}}">{{item.NAME}}</option>
+                                    </select>
+                                    <label class="label-control">Assessment Year
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-end">
+                                <a (click)="addAuditor()"><i>add</i></a>
+                            </div>
+                            <div class="row mb-2" *ngFor="let item of f1; let j= index" [formGroup]="item">
+                                <div class="col-md-6">
+                                    <select class="form-control-select notEmpty"
+                                        [ngClass]="{'invalid':submitted && f1[j].get('NAME')?.errors}"
+                                        formControlName="NAME">
+                                        <option class="select-option" value="" selected disabled>Select Auditor
+                                        </option>
+                                        <option class="select-option" *ngFor="let item of auditorList"
+                                            value="{{item.NAME}}">{{item.NAME}}</option>
+                                    </select>
+                                    <label class="label-control">Name of Statutory Auditor
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="date" formControlName="FROM_DATE"
+                                        [ngClass]="{'invalid':submitted && f1[j].get('FROM_DATE')?.errors}"
+                                        class="form-control-input notEmpty">
+                                    <label class="label-control">From Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="date" formControlName="TO_DATE"
+                                        [ngClass]="{'invalid':submitted && f1[j].get('TO_DATE')?.errors}"
+                                        class="form-control-input notEmpty">
+                                    <label class="label-control">To Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <i *ngIf="j > 0"
+                                        (click)="deleteAuditor(j)">delete</i>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-end">
+                                <a (click)="addCEO()"><i>add</i></a>
+                            </div>
+                            <div class="row mb-2" *ngFor="let item of f2;let j= index" [formGroup]="item">
+                                <div class="col-md-6">
+                                    <select class="form-control-select notEmpty"
+                                        [ngClass]="{'invalid':submitted && f2[j].get('NAME')?.errors}"
+                                        formControlName="NAME" formControlName="NAME">
+                                        <option class="select-option" value="" selected disabled>Select CEO
+                                        </option>
+                                        <option class="select-option" *ngFor="let item of CEOList"
+                                            value="{{item.NAME}}">{{item.NAME}}</option>
+                                    </select>
+                                    <label class="label-control">CEO
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f2[j].get('FROM_DATE')?.errors}"
+                                        formControlName="FROM_DATE">
+                                    <label class="label-control">From Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f2[j].get('TO_DATE')?.errors}"
+                                        formControlName="TO_DATE">
+                                    <label class="label-control">To Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <i *ngIf="j > 0"
+                                        (click)="deleteCEO(j)">delete</i>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-end">
+                                <a (click)="addCFO()"><i>add</i></a>
+                            </div>
+                            <div class="row mb-2" *ngFor="let item of f3;let j= index" [formGroup]="item">
+                                <div class="col-md-6">
+                                    <select class="form-control-select notEmpty"
+                                        [ngClass]="{'invalid':submitted && f3[j].get('NAME')?.errors}"
+                                        formControlName="NAME">
+                                        <option class="select-option" value="" selected disabled>Select CFO
+                                        </option>
+                                        <option class="select-option" *ngFor="let item of CFOList"
+                                            value="{{item.NAME}}">{{item.NAME}}</option>
+                                    </select>
+                                    <label class="label-control">CFO
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f3[j].get('FROM_DATE')?.errors}"
+                                        formControlName="FROM_DATE">
+                                    <label class="label-control">From Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f3[j].get('TO_DATE')?.errors}"
+                                        formControlName="TO_DATE">
+                                    <label class="label-control">To Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <i *ngIf="j > 0"
+                                        (click)="deleteCFO(j)">delete</i>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-end">
+                                <a (click)="addMainBanker()"><i>add</i></a>
+                            </div>
+                            <div class="row mb-2" *ngFor="let item of f4;let j= index" [formGroup]="item">
+                                <div class="col-md-6">
+                                    <select class="form-control-select notEmpty"
+                                        [ngClass]="{'invalid':submitted && f4[j].get('NAME')?.errors}"
+                                        formControlName="NAME">
+                                        <option class="select-option" value="" selected disabled>Select Main Banker
+                                        </option>
+                                        <option class="select-option" *ngFor="let item of bankerList"
+                                            value="{{item.NAME}}">{{item.NAME}}</option>
+                                    </select>
+                                    <label class="label-control">Main Banker
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f4[j].get('FROM_DATE')?.errors}"
+                                        formControlName="FROM_DATE">
+                                    <label class="label-control">From Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f4[j].get('TO_DATE')?.errors}"
+                                        formControlName="TO_DATE">
+                                    <label class="label-control">To Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <i *ngIf="j > 0"
+                                        (click)="deleteMainBanker(j)">delete</i>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-end">
+                                <a (click)="addDirector()"><i>add</i></a>
+                            </div>
+                            <div class="row mb-2" *ngFor="let item of f5;let j= index" [formGroup]="item">
+                                <div class="col-md-6">
+                                    <select class="form-control-select notEmpty"
+                                        [ngClass]="{'invalid':submitted && f5[j].get('NAME')?.errors}"
+                                        formControlName="NAME">
+                                        <option class="select-option" value="" selected disabled>Select Director
+                                        </option>
+                                        <option class="select-option" *ngFor="let item of directorList"
+                                            value="{{item.NAME}}">{{item.NAME}}</option>
+                                    </select>
+                                    <label class="label-control">Director
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f5[j].get('FROM_DATE')?.errors}"
+                                        formControlName="FROM_DATE">
+                                    <label class="label-control">From Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f5[j].get('TO_DATE')?.errors}"
+                                        formControlName="TO_DATE">
+                                    <label class="label-control">To Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-1">
+                                    <i *ngIf="j > 0"
+                                        (click)="deleteDirector(j)">delete</i>
+                                </div>
+                            </div>
+                            <h6 class="mt-4 mb-4">List of Applicable Compliances:</h6>
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    <input type="checkbox" (change)="checkTaxtAudit($event)"
+                                        formControlName="IS_TAX_AUDIT"> Tax Audit
+                                </div>
+                                <div class="col-md-3" *ngIf="isTaxAudit">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f.TA_DUE_DATE.errors}"
+                                        formControlName="TA_DUE_DATE">
+                                    <label class="label-control">Due Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    <input type="checkbox" (change)="checkTransferPricing($event)"
+                                        formControlName="IS_TRANSFER_PRICING"> Transfer Pricing
+                                    Report
+                                </div>
+                                <div class="col-md-3" *ngIf="isTransferPricing">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f.TP_DUE_DATE.errors}"
+                                        formControlName="TP_DUE_DATE">
+                                    <label class="label-control">Due Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="checkbox" (change)="checkMasterFiling($event)"
+                                        formControlName="IS_MASTER_FILING"> Master Filing Report
+                                </div>
+                                <div class="col-md-3" *ngIf="isMasterFiling">
+                                    <input type="date" class="form-control-input notEmpty"
+                                        [ngClass]="{'invalid':submitted && f.MF_DUE_DATE.errors}"
+                                        formControlName="MF_DUE_DATE">
+                                    <label class="label-control">Due Date
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <button *ngIf="!isUpdate" class="form-control-submit-button col-md-2 mt-3"
+                                        (click)="insertForm()">Save</button>
+                                    <button *ngIf="isUpdate" class="form-control-submit-button col-md-2 mt-3"
+                                        (click)="UpdateAssessmentYear()">Update</button>
+                                    <button (click)="clearform()"
+                                        class="form-control-submit-button col-md-2 mt-3 mx-3">Clear</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a class="btn-outline-reg back" routerLink="/assessment-year/user-landing">BACK</a>
+            </div>
+        </div>
+    </div>
+
+</div>

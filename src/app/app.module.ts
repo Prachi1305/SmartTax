@@ -14,6 +14,7 @@ import { JwtInterceptor } from './lib/interceptors/jwt.interceptor';
 import { NotfoundComponent } from './lib/components/error-pages/notfound/notfound.component';
 import * as $ from 'jquery';
 import * as DataTable from 'datatables.net';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import * as DataTable from 'datatables.net';
     AppRoutingModule,HttpClientModule
 
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },DatePipe],
   bootstrap: [AppComponent],
   exports: []
 })

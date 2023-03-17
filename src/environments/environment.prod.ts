@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiURL:"",
-  key:"sercret112"
+  apiURL:"https://localhost:44348/api/",
+  key:"sercret112",
 };

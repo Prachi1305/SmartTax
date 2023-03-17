@@ -1,0 +1,47 @@
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div>
+                    <button class="col-md-2 form-btn float-end" routerLink="/masters/company">
+                        <i class="fa fa-plus me-1"></i> Add Company </button>
+                </div>
+            </div>
+            <div class="col-lg-10 mx-auto">
+                <div class="card px-5" style="border:1px solid black">
+                    <div class="card-body">
+                        <h3 class="card-title">Company Master List</h3>
+                        <!-- <table class="table align-middle mb-2 cell-border compact" id="data-table-setup">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Company Name</th>
+                                    <th>PAN</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of companyList; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{item.NAME}}</td>
+                                    <td>{{item.PAN}}</td>
+                                    <td>{{item.STATUS}}</td>
+                                    <td>
+                                        <i routerLink="/masters/company/{{item.ID}}">edit |</i>
+                                        <i (click)="deleteCompany(item.ID)">delete</i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+
+                        <app-table [tableColumn]="tableColumn" [tableData]="companyList" [tableKeys]="tablekeys" *ngIf="companyList.length>0" 
+                            [showEditBtn]="true" [showDeleteBtn]= "true"
+                             (onEdit)="edit($event)" (onDelete)="OnDelete($event)" ></app-table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

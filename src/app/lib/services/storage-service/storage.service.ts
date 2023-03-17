@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { environment } from 'src/environments/environment';
+import jwt_decode from 'jwt-decode';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +31,14 @@ export class StorageService {
 
   private decrypt(txtToDecrypt: string) {
     return CryptoJS.AES.decrypt(txtToDecrypt, environment.key).toString(CryptoJS.enc.Utf8);
+  }
+
+  getDecodedAccessToken(token: string): any {
+    try {
+      return jwt_decode(token);
+    } catch(Error) {
+      return null;
+    }
   }
 
 }

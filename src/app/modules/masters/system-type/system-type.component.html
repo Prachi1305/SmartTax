@@ -1,0 +1,90 @@
+<div class="ex-basic-2">
+    <div class="container">
+        <div class="row">
+            <div>
+                <div>
+                    <button (click)="openModal(0)" class="col-md-2 btn btn-primary float-end">
+                        <i class="fa fa-plus me-1"></i> Add New </button>
+                    <button class="col-md-2 float-end d-none" #openModalPopup data-bs-toggle="modal"
+                        href="#masterModal">Add New </button>
+                </div>
+            </div>
+            <div class="col-lg-10 mx-auto">
+                <div class="card px-5" style="border:1px solid black">
+                    <div class="card-body">
+                        <h3 class="card-title">System Type Master</h3>
+                        <!-- <table class="table align-middle mb-2 cell-border compact" id="data-table-setup">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="col-md-1">No</th>
+                                    <th class="col-md-2">Category</th>
+                                    <th class="col-md-2">Name</th>
+                                    <th class="col-md-2">Description</th>
+                                    <th class="col-md-1">Active/Inactive</th>
+                                    <th class="col-md-1">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of systemTypeMasterList; let i = index">
+                                    <td class="col-md-1">{{i+1}}</td>
+                                    <td class="col-md-2">{{item.CATEGORY}}</td>
+                                    <td class="col-md-2">{{item.NAME}}</td>
+                                    <td class="col-md-2">{{item.DESCRIPTION}}</td>
+                                    <td class="col-md-1">{{item.STATUS ? 'Active' : 'Inactive'}}</td>
+                                    <td class="col-md-1"><i (click)="openModal(item.ID)">edit |</i>
+                                        <i (click)="deleteSystemTypeMaster(item.ID)">delete</i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> -->
+
+                        <app-table [tableColumn]="tableColumn" [tableData]="systemTypeMasterList" [tableKeys]="tablekeys" 
+                            [showEditBtn]="true" [showDeleteBtn]= "true" *ngIf="systemTypeMasterList.length>0"
+                             (onEdit)="openModal($event)" (onDelete)="deleteSystemTypeMaster($event.ID)" ></app-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="masterModal" aria-labelledby="exampleModalLabel" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">System Type Master</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeBtn></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3 gx-3" [formGroup]="masterForm">
+                    <div class="col-md-6">
+                        <label>Category</label>
+                        <select formControlName="CATEGORY">
+                            <option value="" selected disabled>Select Category</option>
+                            <option *ngFor="let item of categoryList" [value]="item">{{item}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Name</label>
+                        <input type="text" formControlName="NAME">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Description</label>
+                        <input type="text" formControlName="DESCRIPTION">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="checkbox" formControlName="STATUS"> Active
+                    </div>
+                    <div class="form-group">
+                        <button *ngIf="!isUpdate" (click)="InsertystemTypeMaster()"
+                            class="form-control-submit-button col-md-2 mt-3">SUBMIT</button>
+                        <button *ngIf="isUpdate" (click)="updateSystemTypeMaster() "
+                            class="form-control-submit-button col-md-2 mt-3">UPDATE</button>
+                        <button (click)="ClearForm()" class="form-control-submit-button col-md-2 mt-3 mx-3">CLEAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
